@@ -15,6 +15,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import com.bfs45.dao.EmployeeDao;
 import com.bfs45.model.Employee;
+import com.bfs45.processor.Processor;
 
 public class EmployeeService {
 	
@@ -53,15 +54,14 @@ public class EmployeeService {
 		
 	}
 		
-		public void writeToExcel(File file, String sheetName) throws EncryptedDocumentException, IOException, ClassNotFoundException, SQLException {
+		public void updateDB() throws SQLException, EncryptedDocumentException, ClassNotFoundException, IOException {
 			
-			FileInputStream fis = new FileInputStream(file);
-			Workbook wb = WorkbookFactory.create(fis);
-			Sheet sheet = wb.createSheet(sheetName);
 			empDao = new EmployeeDao();
 			
-			while(true) {
-				Scanner sc = new Scanner(System.in);
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Update employee details(Y/N): ");
+			String choice = sc.next();
+			if(choice.toUpperCase().equals("Y")) {
 				System.out.println("Enter emp_id: ");
 				int emp_id = sc.nextInt();
 				System.out.println("update employee position: ");
@@ -71,21 +71,47 @@ public class EmployeeService {
 				
 				Employee emp = new Employee(emp_id, salary, position); 
 				empDao.updateEmployees(emp);
-				
-				FileOutputStream fos = new FileOutputStream(file);
-				wb.write(fos);
-				
-				System.out.println("Update more employee details(Y/N): ");
-				String choice = sc.next();
-				if(choice.toUpperCase().equals("N")) {
-					break;
-				}
-				
+			} else {
+				empDao.selectEmployees();
 			}
+			
+		}
 		
+		
+		
+		int i=1;
+		
+		public void writeToExcel(int emp_id, String emp_name, int salary, String position, Row row, Sheet sheet) throws EncryptedDocumentException, IOException {
+//
+//			Processor p = new  Processor();
+//			FileInputStream fis = new FileInputStream(p.fileName);
+//			Workbook wb = WorkbookFactory.create(fis);
+//			Sheet sheet = wb.createSheet(p.newSheet);
+//			Row row = sheet.createRow(0); //first row of the sheet 
 			
+			// column names of the first row
+			row.createCell(0).setCellValue("emp_id");
+			row.createCell(1).setCellValue("emp_name");
+			row.createCell(2).setCellValue("salary");
+			row.createCell(3).setCellValue("position");
 			
+			// create new row in excel sheet
+			Row r = sheet.createRow(i++);
+			// captured data will show up in each of these cells
+			r.createCell(0).setCellValue(emp_id);
+			r.createCell(1).setCellValue(emp_name);
+			r.createCell(2).setCellValue(salary);
+			r.createCell(3).setCellValue(position);
 			
+		}
+		
+		
+		public void closeExcel(Workbook wb, Processor p) throws IOException {
+			
+			FileOutputStream fos = new FileOutputStream(p.fileName);
+			wb.write(fos);
+			wb.close();
+			fos.close();
 		}
 	
 }
