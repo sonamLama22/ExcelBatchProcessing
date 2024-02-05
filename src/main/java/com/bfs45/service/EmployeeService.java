@@ -20,8 +20,6 @@ import com.bfs45.processor.Processor;
 public class EmployeeService {
 	
 	EmployeeDao empDao; 
-
-	// File path: C:\\Users\\sonam\\bfs45_workspace\\EmployeeInfo.xlsx
 		// take excel sheet as arg.
 		public void readFromExcel(File file, String sheetName) throws EncryptedDocumentException, IOException, ClassNotFoundException, SQLException {
 			
@@ -39,8 +37,7 @@ public class EmployeeService {
 				// loop thru excel sheet
 				for(Row row: sheet) {
 					if(row.getRowNum() != 0) { // skip first row
-						// create Employee object  -------> Add validation for employee id. it shouln't exceed 30 chars.
-											      // --------> Add validation for address, and others too
+
 						Employee emp=new Employee((int)row.getCell(0).getNumericCellValue(), 
 								String.valueOf(row.getCell(1)),
 								(int)row.getCell(2).getNumericCellValue(),
@@ -82,12 +79,7 @@ public class EmployeeService {
 		int i=1;
 		
 		public void writeToExcel(int emp_id, String emp_name, int salary, String position, Row row, Sheet sheet) throws EncryptedDocumentException, IOException {
-//
-//			Processor p = new  Processor();
-//			FileInputStream fis = new FileInputStream(p.fileName);
-//			Workbook wb = WorkbookFactory.create(fis);
-//			Sheet sheet = wb.createSheet(p.newSheet);
-//			Row row = sheet.createRow(0); //first row of the sheet 
+
 			
 			// column names of the first row
 			row.createCell(0).setCellValue("emp_id");
@@ -109,6 +101,7 @@ public class EmployeeService {
 		public void closeExcel(Workbook wb, Processor p) throws IOException {
 			
 			FileOutputStream fos = new FileOutputStream(p.fileName);
+			System.out.println("File has been written to excel sheet.");
 			wb.write(fos);
 			wb.close();
 			fos.close();
