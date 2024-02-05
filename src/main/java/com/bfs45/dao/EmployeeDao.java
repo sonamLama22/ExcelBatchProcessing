@@ -77,6 +77,12 @@ public class EmployeeDao {
 		Sheet sheet = wb.createSheet(p.newSheet);
 		Row row = sheet.createRow(0); //create first row of the sheet 
 		
+		// column names of the first row
+		row.createCell(0).setCellValue("emp_id");
+		row.createCell(1).setCellValue("emp_name");
+		row.createCell(2).setCellValue("salary");
+		row.createCell(3).setCellValue("position");
+		
 		Connection con = DBUtil.getConnection();
 		Statement st = con.createStatement();
 		ResultSet rs = st.executeQuery("select * from employee");

@@ -81,12 +81,6 @@ public class EmployeeService {
 		public void writeToExcel(int emp_id, String emp_name, int salary, String position, Row row, Sheet sheet) throws EncryptedDocumentException, IOException {
 
 			
-			// column names of the first row
-			row.createCell(0).setCellValue("emp_id");
-			row.createCell(1).setCellValue("emp_name");
-			row.createCell(2).setCellValue("salary");
-			row.createCell(3).setCellValue("position");
-			
 			// create new row in excel sheet
 			Row r = sheet.createRow(i++);
 			// captured data will show up in each of these cells
