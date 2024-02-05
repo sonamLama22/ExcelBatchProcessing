@@ -22,12 +22,12 @@ public class Processor {
 		File file = new File(fileName);
 		Scanner sc = new Scanner(System.in);
 			try {
-				System.out.println("Do you want to read or update the file? ");
+				System.out.println("Do you want to read the file or write to the file? ");
 				String answer = sc.next();
 				if(answer.equalsIgnoreCase("read")) {
 					empService.readFromExcel(file, "employee"); // pass file path and  sheet name to empDao method.
 				}
-				else if(answer.equalsIgnoreCase("update")) {
+				else if(answer.equalsIgnoreCase("write")) {
 					empService1.updateDB();
 				}else {
 					System.out.println("Please enter choose correct option.");
@@ -38,7 +38,6 @@ public class Processor {
 				e.printStackTrace();
 			}
 			
-
 	}
 
 }

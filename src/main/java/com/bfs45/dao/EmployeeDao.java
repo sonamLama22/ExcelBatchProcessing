@@ -63,14 +63,19 @@ public class EmployeeDao {
 	// selection
 	public void selectEmployees() throws ClassNotFoundException, SQLException, EncryptedDocumentException, IOException {
 
-
 		Processor p = new  Processor();
 		FileInputStream fis = new FileInputStream(p.fileName);
 		System.out.println(p.fileName);
 		Workbook wb = WorkbookFactory.create(fis);
 		
+		// if sheet already exists, delete sheet.
+		if(wb.getSheetName(1).equals(p.newSheet)) {
+			wb.removeSheetAt(1);
+		}
+		
+		// create new sheet
 		Sheet sheet = wb.createSheet(p.newSheet);
-		Row row = sheet.createRow(0); //first row of the sheet 
+		Row row = sheet.createRow(0); //create first row of the sheet 
 		
 		Connection con = DBUtil.getConnection();
 		Statement st = con.createStatement();
