@@ -6,11 +6,10 @@ public class Employee {
 	private int salary;
 	private String position;
 	
-	public Employee(int emp_id, int salary, String position) {
+	public Employee(int emp_id, int salary) {
 		super();
 		this.emp_id = emp_id;
 		this.salary = salary;
-		this.position = position;
 	}
 	
 	public Employee(int emp_id, String emp_name, int salary, String position) {

@@ -56,22 +56,21 @@ public class EmployeeService {
 			empDao = new EmployeeDao();
 			
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Update employee details(Y/N): ");
+			System.out.println("Update employee salary(Y/N): ");
 			String choice = sc.next();
 			if(choice.toUpperCase().equals("Y")) {
 				System.out.println("Enter emp_id: ");
 				int emp_id = sc.nextInt();
-				System.out.println("update employee position: ");
-				String position = sc.next();
 				System.out.println("update salary: ");
 				int salary = sc.nextInt();
 				
-				Employee emp = new Employee(emp_id, salary, position); 
+				Employee emp = new Employee(emp_id, salary); 
 				empDao.updateEmployees(emp);
-			} else {
 				empDao.selectEmployees();
+			} else {
+				System.out.println("No updates.");
 			}
-			
+					
 		}
 		
 		
@@ -79,19 +78,16 @@ public class EmployeeService {
 		int i=1;
 		
 		public void writeToExcel(int emp_id, String emp_name, int salary, String position, Row row, Sheet sheet) throws EncryptedDocumentException, IOException {
-
-			
+		
 			// create new row in excel sheet
 			Row r = sheet.createRow(i++);
 			// captured data will show up in each of these cells
 			r.createCell(0).setCellValue(emp_id);
 			r.createCell(1).setCellValue(emp_name);
 			r.createCell(2).setCellValue(salary);
-			r.createCell(3).setCellValue(position);
-			
+			r.createCell(3).setCellValue(position);		
 		}
-		
-		
+				
 		public void closeExcel(Workbook wb, Processor p) throws IOException {
 			
 			FileOutputStream fos = new FileOutputStream(p.fileName);

@@ -46,12 +46,11 @@ public class EmployeeDao {
 	public void updateEmployees(Employee emp) throws ClassNotFoundException, SQLException, EncryptedDocumentException, IOException {
 
 		Connection con = DBUtil.getConnection();
-		String query = "UPDATE employee SET salary = ?, position = ? WHERE emp_id = ?";
+		String query = "UPDATE employee SET salary = ? WHERE emp_id = ?";
 		PreparedStatement ps = con.prepareStatement(query);
 		
 		ps.setInt(1, emp.getSalary());
-		ps.setString(2, emp.getPosition());
-		ps.setInt(3, emp.getEmp_id());
+		ps.setInt(2, emp.getEmp_id());
 		
 		ps.execute();
 		System.out.println("Record has been updated.");
