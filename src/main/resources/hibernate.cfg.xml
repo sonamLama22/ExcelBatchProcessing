@@ -1,0 +1,26 @@
+        
+<hibernate-configuration>
+    <session-factory>
+        <!-- JDBC Database connection settings -->
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/testdb</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">root123</property>
+        <!-- JDBC connection pool settings ... using built-in test pool -->
+        <!-- <property name="connection.pool_size">1</property> -->
+        <!-- Select our SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <!-- Echo the SQL to stdout -->
+        <property name="show_sql">true</property>
+        <!-- Set the current session context -->
+        <!-- create the database schema on startup -->
+        <!-- <property name="hbm2ddl.auto">create</property>  -->
+		 
+		<property name="hbm2ddl.auto">update</property> 
+     
+     	<!-- <maping resource="student.hbm.xml"></maping> -->
+     	
+        <mapping class="com.bfs45.model.Employee" /> 
+
+    </session-factory>
+</hibernate-configuration>

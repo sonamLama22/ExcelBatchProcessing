@@ -1,10 +1,40 @@
 package com.bfs45.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table( name = "employee")
+@NamedQueries({
+	@NamedQuery(name = "employee.FETCH", query= "from Employee e "),
+	@NamedQuery( name = "employee.UPDATE", query = "UPDATE Employee e set e.salary=:salary"
+			+" where e.emp_id=: emp_id")
+})
 public class Employee {
+	
+	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO, generator = "empId_generator")
 	private int emp_id;
+	
+	@Column(name = "emp_name")
 	private String emp_name;
+	
+	@Column(name = "salary")
 	private int salary;
+	
+	@Column(name = "position")
 	private String position;
+	
+	public Employee() {
+		
+	}
 	
 	public Employee(int emp_id, int salary) {
 		super();
